@@ -10,9 +10,9 @@ android {
         minSdkVersion 8
         targetSdkVersion 4
         // versionCode must be an integer that is higher than the previous release
-        versionCode 2
+        versionCode 3
         // versionName is not used for version checks, it is only used for display purposes
-        versionName '1.2'
+        versionName '1.2.1'
     }
     buildTypes {
         release {

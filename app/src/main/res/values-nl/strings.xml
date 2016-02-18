@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clear_epo">EPO wissen</string>
+    <string name="clear_gps">GPS-toestand wissen</string>
+    <string name="days_ago">dagen geleden</string>
+    <string name="download_fail">FOUT: Download mislukt</string>
+    <string name="downloading">Downloaden...</string>
+    <string name="exec_fail">FOUT: Kan bestanden niet wijzigen. Ofwel is de telefoon niet geroot, ofwel heeft deze app geen root-toelating?</string>
+    <string name="get_epo">EPO Updaten</string>
+    <string name="installing">Installeren...</string>
+    <string name="last_modified">Uw EPO.DAT was laatst bijgewerkt</string>
+    <string name="no_epo">Geen bestaande EPO.DAT gevonden.</string>
+    <string name="success_clear_epo">EPO-bestand is met succes gewist!</string>
+    <string name="success_clear_gps">Het mtkgps.dat bestand is met succes gewsit!</string>
+    <string name="success_epo">EPO gegevens zijn met succes bijgewerkt!</string>
+    <string name="too_small">FOUT: Onvolledige download?</string>
+    <string name="app_name">EPO Updater</string>
+</resources>

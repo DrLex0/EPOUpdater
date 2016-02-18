@@ -46,7 +46,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EPOBlaster extends Activity {
+public class EPOUpdater extends Activity {
 
     private TextView outputView;
     private Button getEpoButton;

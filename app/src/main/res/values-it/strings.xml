@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clear_epo">Azzera EPO</string>
+    <string name="clear_gps">Azzera stato GPS</string>
+    <string name="days_ago">giorni fa</string>
+    <string name="download_fail">ERRORE: download fallito</string>
+    <string name="downloading">Download...</string>
+    <string name="exec_fail">ERRORE. Imposibile modificare i file dati. Il dispositivo potrebbe non essere rootato, o non hai i diritti di root per questa APK.</string>
+    <string name="get_epo">Aggiorna EPO</string>
+    <string name="installing">Installazione...</string>
+    <string name="last_modified">Aggiornameto file EPO.DAT completato</string>
+    <string name="no_epo">Nessun file EPO.DAT trovato.</string>
+    <string name="success_clear_epo">Azzeramentio file EPO completato!</string>
+    <string name="success_clear_gps">Azzeramento file MTKGPS.DAT completato!</string>
+    <string name="success_epo">Aggiornamento file EPO completato!</string>
+    <string name="too_small">ERRORE. Download incompleto?</string>
+    <string name="app_name">EPO Updater</string>
+</resources>
