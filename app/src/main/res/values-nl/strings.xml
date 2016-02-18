@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">EPO Updater</string>
     <string name="clear_epo">EPO wissen</string>
     <string name="clear_gps">GPS-toestand wissen</string>
     <string name="days_ago">dagen geleden</string>
@@ -14,5 +15,4 @@
     <string name="success_clear_gps">Het mtkgps.dat bestand is met succes gewsit!</string>
     <string name="success_epo">EPO gegevens zijn met succes bijgewerkt!</string>
     <string name="too_small">FOUT: Onvolledige download?</string>
-    <string name="app_name">EPO Updater</string>
 </resources>
