@@ -1,6 +1,8 @@
 # EPOUpdater
 Bare-bones Android EPO Updater for MTK-based phones
 
+Release webpage: http://www.dr-lex.be/software/epoupdater.html
+
 Mind that this is my first Android app and my only goal was to get something that does what I want,
  not something that looks fancy.
 
