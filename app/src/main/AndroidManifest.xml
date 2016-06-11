@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="be.drlex.epoblaster"
-    android:versionCode="2"
-    android:versionName="1.2">
+    package="be.drlex.epoblaster">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application

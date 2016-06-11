@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">EPO Updater</string>
-    <string name="epo_url" translatable="false">http://epodownload.mediatek.com/EPO.DAT</string>
+    <string name="epo_url" translatable="false">http://epodownload.mediatek.com/</string>
     <string name="get_epo">Update EPO</string>
     <string name="clear_gps">Clear GPS state</string>
     <string name="clear_epo">Clear EPO</string>
-    <string name="downloading">Downloading...</string>
+    <string name="downloading">Downloading…</string>
     <string name="download_fail">ERROR: Download failed</string>
-    <string name="installing">Installing...</string>
+    <string name="installing">Installing…</string>
     <string name="too_small">ERROR: Incomplete download?</string>
     <string name="exec_fail">ERROR: Cannot modify data files. Maybe your device is not rooted, or you did not allow root access for this APK?</string>
     <string name="success_epo">Successfully updated EPO file!</string>
@@ -17,5 +16,6 @@
     <string name="last_modified">Your EPO.DAT file was last updated</string>
     <string name="days_ago">days ago</string>
     <string name="no_epo">No existing EPO.DAT file found.</string>
-
+    <string name="exception_md5">Unexpected error while verifying MD5</string>
+    <string name="md5_mismatch">MD5 checksum mismatch. Try re-downloading.</string>
 </resources>
