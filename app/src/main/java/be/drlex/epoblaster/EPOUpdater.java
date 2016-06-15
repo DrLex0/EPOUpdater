@@ -55,10 +55,13 @@ public class EPOUpdater extends Activity {
     private static String localPath;
 
     private final String targetPath = "/data/misc/";
-    // There can be two files: if EPOHAL.DAT exists, the GPS system will always use it even if EPO.DAT is more recent
-    private final String epoHalName = "EPOHAL.DAT";
-    private final String epoName = "EPO.DAT";
+    private final String epoFileName = "EPO.DAT";
     private final String epoMD5Name = "EPO.MD5";
+    // There can be two files: if EPOHAL.DAT exists, the GPS system will always use it even if EPO.DAT is more recent
+    private final String epoHalFileName = "EPOHAL.DAT";
+    private final String epoHalMD5Name = "EPOHAL.MD5";
+    // A failed auto-download will usually leave this file behind, so let's clean this up as well
+    private final String epoTmpName = "EPOTMP.DAT";
     private TextView outputView;
     private Handler handler = new Handler();
 
@@ -79,9 +82,9 @@ public class EPOUpdater extends Activity {
         Button clearEPOButton = (Button) findViewById(R.id.clearEPOButton);
         clearEPOButton.setOnClickListener(onClearEPOButtonClick);
 
-        File epoFile = new File(targetPath + epoHalName);
+        File epoFile = new File(targetPath + epoHalFileName);
         if (!epoFile.exists()) {
-            epoFile = new File(targetPath + epoName);
+            epoFile = new File(targetPath + epoFileName);
         }
         if (epoFile.exists()) {
             long lastMod = epoFile.lastModified();
@@ -96,14 +99,14 @@ public class EPOUpdater extends Activity {
     private OnClickListener onEpoButtonClick = new OnClickListener() {
         public void onClick(View v) {
             final String url = getString(R.string.epo_url);
-            final String tempEpoPath = localPath + "/" + epoName;
+            final String tempEpoPath = localPath + "/" + epoFileName;
             final String tempMD5Path = localPath + "/" + epoMD5Name;
 
             clearOutput();
             Thread thread = new Thread(new Runnable() {
                 public void run() {
                     try {
-                        download(url + epoName, tempEpoPath, "EPO");
+                        download(url + epoFileName, tempEpoPath, "EPO");
                         download(url + epoMD5Name, tempMD5Path, "MD5");
                         verifyMD5(tempEpoPath, tempMD5Path);
                         installEPO();
@@ -141,16 +144,8 @@ public class EPOUpdater extends Activity {
             clearOutput();
             Thread thread = new Thread(new Runnable() {
                 public void run() {
-                    final String epoHalPath = targetPath + epoHalName;
-                    final String epoPath = targetPath + epoName;
                     try {
-                        if (new File(epoHalPath).exists()) {
-                            execSU("rm " + epoHalPath);
-                        }
-                        if (new File(epoPath).exists()) {
-                            execSU("rm " + epoPath);
-                        }
-                        output(getString(R.string.success_clear_epo));
+                        purgeEPOFiles(true);
                     } catch (RuntimeException e) {
                         output(getString(R.string.exec_fail) + "! " + e.getLocalizedMessage());
                     }
@@ -159,6 +154,33 @@ public class EPOUpdater extends Activity {
             thread.start();
         }
     };
+
+    private void purgeEPOFiles(boolean verbose) {
+        final String epoFilePath = targetPath + epoFileName;
+        final String epoMD5Path = targetPath + epoMD5Name;
+        final String epoHalPath = targetPath + epoHalFileName;
+        final String epoHalMD5Path = targetPath + epoHalMD5Name;
+        final String epoTmpPath = targetPath + epoTmpName;
+
+        String arguments = "";
+        if (new File(epoFilePath).exists())
+            arguments += " " + epoFilePath;
+        if (new File(epoMD5Path).exists())
+            arguments += " " + epoMD5Path;
+        if (new File(epoHalPath).exists())
+            arguments += " " + epoHalPath;
+        if (new File(epoHalMD5Path).exists())
+            arguments += " " + epoHalMD5Path;
+        if (new File(epoTmpPath).exists())
+            arguments += " " + epoTmpPath;
+
+        if (!arguments.equals("")) {
+            execSU("rm" + arguments);
+        }
+        if (verbose) {
+            output(getString(R.string.success_clear_epo));
+        }
+    }
 
     private String bytesToHexString(byte[] bytes) {
         StringBuilder hexString = new StringBuilder();
@@ -203,29 +225,32 @@ public class EPOUpdater extends Activity {
 
     private void installEPO() {
         output(getString(R.string.installing));
-        File new_file = new File(localPath, epoName);
+        File new_file = new File(localPath, epoFileName);
         if (new_file.length() < 200000) {
             throw new RuntimeException(getString(R.string.too_small));
         }
-        final String epoPath = targetPath + epoName;
+
+        final String epoPath = targetPath + epoFileName;
         final String md5Path = targetPath + epoMD5Name;
-        String existingPath = targetPath + epoHalName;
+        String existingPath = targetPath + epoHalFileName;
         File old_file = new File(existingPath);
         if (!old_file.exists()) {
             existingPath = epoPath;
             old_file = new File(existingPath);
         }
         final String epoBackupPath = epoPath + ".old";
-        File bak_file = new File(epoBackupPath);
+
         try {
             String suScript = "";
             if (old_file.exists()) {
-                if (bak_file.exists()) {
-                    suScript = "rm " + epoBackupPath + "\n";
+                if (new File(epoBackupPath).exists()) {
+                    suScript = "rm " + epoBackupPath + "; ";
                 }
-                suScript += "mv " + existingPath + " " + epoBackupPath + "\n";
+                suScript += "mv " + existingPath + " " + epoBackupPath;
+                execSU(suScript);
             }
-            suScript += "mv " + localPath + "/" + epoName + " " + epoPath
+            purgeEPOFiles(false);
+            suScript = "mv " + localPath + "/" + epoFileName + " " + epoPath
                     + "; mv " + localPath + "/" + epoMD5Name + " " + md5Path
                     + "; chmod 644 " + epoPath + "; chown 1000.1000 " + epoPath
                     + "; chmod 644 " + md5Path + "; chown 1000.1000 " + md5Path;
@@ -247,7 +272,7 @@ public class EPOUpdater extends Activity {
             outStream.writeBytes("exit\n");
             outStream.flush();
             String readString;
-            StringBuffer output = new StringBuffer();
+            StringBuilder output = new StringBuilder();
             while ((readString = reader.readLine()) != null) {
                 output.append(readString);
             }
