@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EPO Updater</string>
+    <string name="clear_epo">Borrar EPO</string>
+    <string name="clear_gps">Borrar archivos GPS inv&#225;lidos</string>
+    <string name="days_ago">d&#237;as de antig&#252;edad</string>
+    <string name="download_fail">ERROR: &#161;La descarga ha fallado!</string>
+    <string name="downloading">Descargando&#8230;</string>
+    <string name="exception_md5">&#161;Se ha producido un error inesperado al verificar el MD5!</string>
+    <string name="exec_fail">ERROR: &#161;No se pueden modificar los archivos de datos! Tal vez su dispositivo no est&#233; \"rooteado\", o si lo est&#225;, quiz&#225;s su app de S.U no le ha concedido permisos ROOT a EPO Updater.</string>
+    <string name="get_epo">Actualizar EPO</string>
+    <string name="installing">Instalando&#8230;</string>
+    <string name="last_modified">El actual archivo EPO.DAT encontrado en su dispositivo tiene…</string>
+    <string name="md5_mismatch">No hay coincidencias con el checksum y el MD5. Intente volver a descargarlos de nuevo.</string>
+    <string name="no_epo">No se ha encontrado ning&#250;n archivo EPO.DAT en su dispositivo.</string>
+    <string name="success_clear_epo">&#161;El archivo EPO.DAT ha sido eliminado con &#233;xito!</string>
+    <string name="success_clear_gps">&#161;El archivo  mtkgps.dat  ha sido eliminado con &#233;xito!</string>
+    <string name="success_epo">&#161;El archivo EPO ha sido actualizado con &#233;xito!</string>
+    <string name="too_small">ERROR: &#161;No se ha podido completar la descarga!</string>
+</resources>
